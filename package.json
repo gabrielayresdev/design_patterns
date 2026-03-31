@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts"
@@ -19,6 +20,11 @@
   "homepage": "https://github.com/gabrielayresdev/design_patterns#readme",
   "dependencies": {
     "fastify": "^5.8.4",
-    "tsx": "^4.21.0"
+    "prisma": "7.6.0",
+    "tsx": "^4.21.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.0"
   }
 }
