@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/gabrielayresdev/design_patterns#readme",
   "dependencies": {
+    "@prisma/adapter-pg": "7.6.0",
+    "@prisma/client": "7.6.0",
+    "dotenv": "17.3.1",
     "fastify": "^5.8.4",
+    "pg": "8.20.0",
     "prisma": "7.6.0",
     "tsx": "^4.21.0",
     "zod": "4.3.6"
