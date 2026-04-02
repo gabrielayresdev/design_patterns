@@ -1,6 +1,6 @@
 import { User } from "@/generated/prisma/client";
 import { UsersRepository } from "@/repositories/types/users-repository";
-import { UserAlreadyExistsError } from "./erros/user-already-exists";
+import { UserAlreadyExistsError } from "./errors/user-already-exists";
 
 interface RegisterUseCaseRequest {
   email: string;
