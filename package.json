@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "test:watch": "vitest --dir src/e2e --watch",
+    "test:e2e:watch": "vitest --dir src/http --watch"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,9 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@types/node": "25.5.0"
+    "@types/node": "25.5.0",
+    "@types/supertest": "7.2.0",
+    "supertest": "7.2.2",
+    "vitest": "4.1.2"
   }
 }
