@@ -1,10 +1,10 @@
 import fastify from "fastify";
-import { userRoutes } from "./http/controllers/users/routes";
+import { organizationRoutes } from "./http/controllers/organization/routes";
 import z, { ZodError } from "zod";
 
 export const app = fastify();
 
-app.register(userRoutes);
+app.register(organizationRoutes);
 
 app.setErrorHandler((error: unknown, _, reply) => {
   if (error instanceof ZodError) {
