@@ -73,9 +73,3 @@ model Requirements {
   pet   Pet    @relation(fields: [petId], references: [id])
   petId String
 }
-
-model User {
-  id    String @id @default(uuid())
-  email String @unique
-  name  String
-}
