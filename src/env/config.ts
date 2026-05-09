@@ -9,6 +9,7 @@ const envSchema = z.object({
   POSTGRESQL_PASSWORD: z.string(),
   POSTGRESQL_DATABASE: z.string(),
   DATABASE_URL: z.string(),
+  GOOGLE_MAPS_API_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
