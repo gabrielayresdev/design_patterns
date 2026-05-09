@@ -12,6 +12,67 @@ datasource db {
   provider = "postgresql"
 }
 
+enum DogSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum DogEnergyLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum DogDependenceLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum DogEnviromentRequirements {
+  APARTMENT
+  HOUSE_WITH_YARD
+  DOG_PARK
+}
+
+model Organization {
+  id              String @id @default(uuid())
+  owner_name      String
+  owner_email     String @unique
+  owner_cep       String
+  owner_latitude  String
+  owner_longitude String
+  whatsapp_number String
+  password_hash   String
+
+  pets Pet[]
+}
+
+model Pet {
+  id               String                    @id @default(uuid())
+  name             String
+  about            String
+  age              String
+  size             DogSize
+  energy_level     DogEnergyLevel
+  dependency_level DogDependenceLevel
+  enviroment       DogEnviromentRequirements
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  requirements Requirements[]
+}
+
+model Requirements {
+  id   String @id @default(uuid())
+  text String
+
+  pet   Pet    @relation(fields: [petId], references: [id])
+  petId String
+}
+
 model User {
   id    String @id @default(uuid())
   email String @unique
