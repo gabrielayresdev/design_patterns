@@ -4,7 +4,6 @@ import z from "zod";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const parser = z.object({
-    id: z.uuid(),
     name: z.string().min(2).max(100),
     about: z.string().min(10).max(500),
     age: z.number().int().positive(),
@@ -24,4 +23,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     ...data,
     organizationId,
   });
+
+  return reply.status(201).send({ pet });
 }

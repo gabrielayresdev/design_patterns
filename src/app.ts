@@ -1,5 +1,6 @@
 import fastify from "fastify";
 import { organizationRoutes } from "./http/controllers/organization/routes";
+import { petRoutes } from "./http/controllers/pet/routes";
 import z, { ZodError } from "zod";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
@@ -19,6 +20,7 @@ app.register(fastifyJwt, {
 });
 app.register(fastifyCookie);
 app.register(organizationRoutes);
+app.register(petRoutes);
 
 app.setErrorHandler((error: unknown, _, reply) => {
   if (error instanceof ZodError) {
