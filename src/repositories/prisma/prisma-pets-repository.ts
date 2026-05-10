@@ -33,8 +33,6 @@ export class PrismaPetsRepository implements PetsRepository {
       },
     });
 
-    if (!pet) throw new ResourceNotFoundError();
-
     return pet;
   }
 }
