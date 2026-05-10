@@ -30,7 +30,7 @@ enum DogDependenceLevel {
   HIGH
 }
 
-enum DogEnviromentRequirements {
+enum DogEnvironmentRequirements {
   APARTMENT
   HOUSE_WITH_YARD
   DOG_PARK
@@ -51,22 +51,22 @@ model Organization {
 }
 
 model Pet {
-  id               String                    @id @default(uuid())
+  id               String                     @id @default(uuid())
   name             String
   about            String
   age              String
   size             DogSize
   energy_level     DogEnergyLevel
   dependency_level DogDependenceLevel
-  enviroment       DogEnviromentRequirements
+  environment      DogEnvironmentRequirements
 
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String
 
-  requirements Requirements[]
+  requirements Requirement[]
 }
 
-model Requirements {
+model Requirement {
   id   String @id @default(uuid())
   text String
 
