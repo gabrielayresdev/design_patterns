@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { CreatePetInput, PetsRepository } from "../types/pets-repository";
 import { Pet } from "@/generated/prisma/client";
+import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
 
 export class PrismaPetsRepository implements PetsRepository {
   async create(data: CreatePetInput): Promise<Pet> {
@@ -21,6 +22,18 @@ export class PrismaPetsRepository implements PetsRepository {
         },
       },
     });
+
+    return pet;
+  }
+
+  async getById(id: string): Promise<Pet | null> {
+    const pet = await prisma.pet.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!pet) throw new ResourceNotFoundError();
 
     return pet;
   }

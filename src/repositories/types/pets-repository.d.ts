@@ -10,4 +10,5 @@ export type CreatePetInput = Omit<
 
 export interface PetsRepository {
   create: (data: CreatePetInput) => Promise<Pet>;
+  getById: (id: string) => Promise<Pet | null>;
 }
