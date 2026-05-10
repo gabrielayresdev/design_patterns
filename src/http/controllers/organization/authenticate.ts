@@ -19,18 +19,24 @@ export async function authenticate(
 
     const { organization } = await authenticateUseCase.execute(data);
 
-    const token = await reply.jwtSign({
-      sign: {
-        sub: organization.id,
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+        },
       },
-    });
+    );
 
-    const refresh_token = await reply.jwtSign({
-      sign: {
-        sub: organization.id,
-        expiresIn: "7d",
+    const refresh_token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+          expiresIn: "7d",
+        },
       },
-    });
+    );
 
     return reply
       .setCookie("refresh_token", refresh_token, {
