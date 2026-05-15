@@ -1,5 +1,9 @@
 import { Pet, Prisma, Requirement } from "@/generated/prisma/client";
-import { CreatePetInput, PetsRepository } from "../types/pets-repository";
+import {
+  CreatePetInput,
+  PetsRepository,
+  PetWithRequirements,
+} from "../types/pets-repository";
 
 export class InMemoryPetsRepository implements PetsRepository {
   public pets: Pet[] = [];
@@ -30,11 +34,13 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet;
   }
 
-  async getById(id: string): Promise<Pet | null> {
+  async getById(id: string): Promise<PetWithRequirements | null> {
     const pet = this.pets.find((p) => p.id === id);
 
     if (!pet) return null;
 
-    return pet;
+    const requirements = this.requirements.filter((r) => r.petId === pet.id);
+
+    return { ...pet, requirements };
   }
 }
