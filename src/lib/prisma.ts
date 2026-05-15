@@ -6,7 +6,10 @@ const databaseUrl = new URL(env.DATABASE_URL!);
 const schema = databaseUrl.searchParams.get("schema") ?? undefined;
 
 const adapter = new PrismaPg(
-  { connectionString: env.DATABASE_URL! },
+  {
+    connectionString: env.DATABASE_URL!,
+    options: schema ? `-c search_path="${schema}"` : undefined,
+  },
   schema ? { schema } : undefined,
 );
 
