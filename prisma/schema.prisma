@@ -48,6 +48,8 @@ model Organization {
   password_hash    String
 
   pets Pet[]
+
+  @@map("organizations")
 }
 
 model Pet {
@@ -60,16 +62,20 @@ model Pet {
   dependency_level DogDependenceLevel
   environment      DogEnvironmentRequirements
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId String
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
 
   requirements Requirement[]
+
+  @@map("pets")
 }
 
 model Requirement {
   id   String @id @default(uuid())
   text String
 
-  pet   Pet    @relation(fields: [petId], references: [id])
-  petId String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("requirements")
 }

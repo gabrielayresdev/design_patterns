@@ -4,7 +4,7 @@ export type CreatePetInput = Omit<
   Prisma.PetCreateInput,
   "organization" | "requirements"
 > & {
-  organizationId: string;
+  organization_id: string;
   requirements: string[];
 };
 
@@ -15,4 +15,5 @@ export type PetWithRequirements = Pet & {
 export interface PetsRepository {
   create: (data: CreatePetInput) => Promise<Pet>;
   getById: (id: string) => Promise<PetWithRequirements | null>;
+  getManyNearby: (lat: number, lng: number) => Promise<PetWithRequirements[]>;
 }

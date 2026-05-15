@@ -40,7 +40,7 @@ describe("Get Pet Details Use Case", () => {
       dependency_level: "LOW",
       environment: "HOUSE_WITH_YARD",
       requirements: ["Needs a yard"],
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
     const pet = await sut.execute(createdPet.id);

@@ -15,13 +15,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   });
 
   const data = parser.parse(request.body);
-  const organizationId = request.user.sub;
+  const organization_id = request.user.sub;
 
   const registerPetUseCase = makeRegisterPetUseCase();
 
   const pet = await registerPetUseCase.execute({
     ...data,
-    organizationId,
+    organization_id,
   });
 
   return reply.status(201).send({ pet });

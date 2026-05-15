@@ -41,7 +41,7 @@ describe("Register Pet Use Case", () => {
       dependency_level: "LOW",
       environment: "HOUSE_WITH_YARD",
       requirements: ["Needs a yard"],
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
     expect(pet.id).toEqual(expect.any(String));
@@ -59,10 +59,10 @@ describe("Register Pet Use Case", () => {
       dependency_level: "LOW",
       environment: "HOUSE_WITH_YARD",
       requirements: ["Needs a yard"],
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
-    expect(pet.organizationId).toEqual(organization.id);
+    expect(pet.organization_id).toEqual(organization.id);
   });
 
   it("should persist the pet in the repository", async () => {
@@ -77,7 +77,7 @@ describe("Register Pet Use Case", () => {
       dependency_level: "LOW",
       environment: "HOUSE_WITH_YARD",
       requirements: ["Needs a yard"],
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
     expect(petsRepository.pets).toHaveLength(1);
@@ -96,11 +96,11 @@ describe("Register Pet Use Case", () => {
       dependency_level: "LOW",
       environment: "HOUSE_WITH_YARD",
       requirements: ["Needs a yard", "Must not live with cats"],
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
     const petRequirements = petsRepository.requirements.filter(
-      (r) => r.petId === pet.id,
+      (r) => r.pet_id === pet.id,
     );
 
     expect(petRequirements).toHaveLength(2);

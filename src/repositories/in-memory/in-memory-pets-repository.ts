@@ -4,10 +4,16 @@ import {
   PetsRepository,
   PetWithRequirements,
 } from "../types/pets-repository";
+import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates";
+import { InMemoryOrganizationsRepository } from "./in-memory-organization-repository";
 
 export class InMemoryPetsRepository implements PetsRepository {
   public pets: Pet[] = [];
   public requirements: Requirement[] = [];
+
+  constructor(
+    private organizationRepository: InMemoryOrganizationsRepository,
+  ) {}
 
   async create(data: CreatePetInput): Promise<Pet> {
     const pet: Pet = {
@@ -19,13 +25,13 @@ export class InMemoryPetsRepository implements PetsRepository {
       energy_level: data.energy_level,
       dependency_level: data.dependency_level,
       environment: data.environment,
-      organizationId: data.organizationId,
+      organization_id: data.organization_id,
     };
     const requirements: Requirement[] = data.requirements.map((r) => {
       return {
         id: crypto.randomUUID(),
         text: r,
-        petId: pet.id,
+        pet_id: pet.id,
       };
     });
 
@@ -39,8 +45,30 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     if (!pet) return null;
 
-    const requirements = this.requirements.filter((r) => r.petId === pet.id);
+    const requirements = this.requirements.filter((r) => r.pet_id === pet.id);
 
     return { ...pet, requirements };
+  }
+
+  async getManyNearby(lat: number, lng: number) {
+    const closeOrganizations = this.organizationRepository.organizations.filter(
+      (org) => {
+        const distance = getDistanceBetweenCoordinates(
+          { lat, lng },
+          { lat: Number(org.latitude), lng: Number(org.longitude) },
+        );
+        return distance <= 10;
+      },
+    );
+    const pets = this.pets.filter((pet) => {
+      return closeOrganizations.some((org) => org.id === pet.organization_id);
+    });
+
+    const petsWithRequirements = pets.map((pet) => {
+      const requirements = this.requirements.filter((r) => r.pet_id === pet.id);
+      return { ...pet, requirements };
+    });
+
+    return petsWithRequirements;
   }
 }

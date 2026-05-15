@@ -12,7 +12,7 @@ interface RegisterPetUseCaseRequest {
   dependency_level: "LOW" | "MEDIUM" | "HIGH";
   environment: "APARTMENT" | "HOUSE_WITH_YARD" | "DOG_PARK";
   requirements: string[];
-  organizationId: string;
+  organization_id: string;
 }
 
 export class RegisterPetUseCase {
@@ -23,7 +23,7 @@ export class RegisterPetUseCase {
 
   async execute(data: RegisterPetUseCaseRequest): Promise<Pet> {
     const organization = await this.organizationsRepository.findById(
-      data.organizationId,
+      data.organization_id,
     );
 
     if (!organization) {
@@ -32,7 +32,7 @@ export class RegisterPetUseCase {
 
     const pet = await this.petsRepository.create({
       ...data,
-      organizationId: organization.id,
+      organization_id: organization.id,
     });
 
     return pet;
